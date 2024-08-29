@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://uu486cuub2hj"]
+
+[ext_resource type="Material" uid="uid://kltqp8pohwcp" path="res://levels/devtest/materials/floor.tres" id="1_i37c5"]
+[ext_resource type="Material" uid="uid://ceyfatuhguf1h" path="res://levels/devtest/materials/obstacle.tres" id="2_h0dxl"]
+[ext_resource type="Material" uid="uid://cf5e0pf85p23n" path="res://levels/devtest/materials/interactable.tres" id="3_olk4m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p2q8x"]
+
+[sub_resource type="Sky" id="Sky_cj31b"]
+sky_material = SubResource("ProceduralSkyMaterial_p2q8x")
+
+[sub_resource type="Environment" id="Environment_reex7"]
+background_mode = 2
+sky = SubResource("Sky_cj31b")
+ssao_enabled = true
+sdfgi_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
+volumetric_fog_gi_inject = 2.0
+volumetric_fog_length = 30.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nk3sg"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ej7ri"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3k7pi"]
+size = Vector3(0.03, 5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2fetm"]
+size = Vector3(10, 5, 10)
+
+[node name="Devtest" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_reex7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.866025, 0.25, -0.433013, 0, 0.866025, 0.5, 0.5, -0.433013, 0.75, 0, 0, 0)
+
+[node name="Floor" type="CSGMesh3D" parent="."]
+material_override = ExtResource("1_i37c5")
+use_collision = true
+mesh = SubResource("PlaneMesh_nk3sg")
+
+[node name="Box2" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.99999, 0, -0.00441563, 0, 1, 0, 0.00441563, 0, 0.99999, -2.94624, 0.5, -1.85245)
+material_override = ExtResource("2_h0dxl")
+use_collision = true
+mesh = SubResource("BoxMesh_ej7ri")
+
+[node name="Box1" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -3, 0.5, -3)
+material_override = ExtResource("2_h0dxl")
+use_collision = true
+mesh = SubResource("BoxMesh_ej7ri")
+
+[node name="Ladder" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, -0.000663225, 0, 0.000663225, 1, 0, 0, 0, 1, -8.98253, 2.5, 0)
+material_override = ExtResource("3_olk4m")
+use_collision = true
+mesh = SubResource("BoxMesh_3k7pi")
+
+[node name="BigBox" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 0)
+material_override = ExtResource("2_h0dxl")
+use_collision = true
+mesh = SubResource("BoxMesh_2fetm")
