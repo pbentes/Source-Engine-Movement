@@ -1,3 +1,8 @@
+"""
+	Defines the State Machine class. This class handles the lifecycle of the
+states that implement the gameplay.
+"""
+
 class_name StateMachine
 extends Node
 

@@ -1,3 +1,8 @@
+"""
+	Defines the State class. This class is an interface that defines methods to
+be overriden by the implementations to be used by the State Machine class.
+"""
+
 class_name State
 extends Node
 
