@@ -8,7 +8,7 @@ class_name LocomotionSettings
 @export_category("Physics")
 var GRAVITY: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 ## The impulse applied to the CharacterBody3D in the Y axis upon a jump command.
-@export var JUMP_IMPULSE = sqrt(3 * GRAVITY * 0.85)
+var JUMP_IMPULSE = sqrt(3 * GRAVITY * 0.85)
 ## Friction applied to the CharacterBody3D when moving along the ground.
 @export var FRICTION: float
 
