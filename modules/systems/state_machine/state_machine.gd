@@ -25,6 +25,9 @@ func _process(delta):
 func _physics_process(delta):
 	CURRENT_STATE.physics_update(delta)
 
+func get_state(state_name: StringName) -> State:
+	return states.get(state_name)
+
 func on_child_transition(new_state_name: StringName) -> void:
 	var new_state = states.get(new_state_name)
 	if new_state != null:
