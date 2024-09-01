@@ -18,18 +18,18 @@ MAX_ACCELERATION = 60.0
 STOP_SPEED = 1.5
 HEIGHT = 1.8
 
-[sub_resource type="Resource" id="Resource_yhsmu"]
+[sub_resource type="Resource" id="Resource_4wx57"]
 script = ExtResource("3_e2ekr")
 FRICTION = 10.0
-MAX_VELOCITY = 8.33
-MAX_ACCELERATION = 90.0
+MAX_VELOCITY = 6.0
+MAX_ACCELERATION = 60.0
 STOP_SPEED = 1.5
 HEIGHT = 1.8
 
 [sub_resource type="Resource" id="Resource_8l3i6"]
 script = ExtResource("3_e2ekr")
 FRICTION = 10.0
-MAX_VELOCITY = 5.0
+MAX_VELOCITY = 3.0
 MAX_ACCELERATION = 60.0
 STOP_SPEED = 1.5
 HEIGHT = 1.8
@@ -63,7 +63,7 @@ settings = SubResource("Resource_6co6x")
 
 [node name="Running" type="Node" parent="StateMachine"]
 script = ExtResource("3_hculd")
-settings = SubResource("Resource_yhsmu")
+settings = SubResource("Resource_4wx57")
 
 [node name="Walking" type="Node" parent="StateMachine"]
 script = ExtResource("4_ngfin")
