@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://uu486cuub2hj"]
+[gd_scene load_steps=12 format=3 uid="uid://uu486cuub2hj"]
 
 [ext_resource type="Material" uid="uid://kltqp8pohwcp" path="res://levels/devtest/materials/floor.tres" id="1_i37c5"]
 [ext_resource type="Material" uid="uid://ceyfatuhguf1h" path="res://levels/devtest/materials/obstacle.tres" id="2_h0dxl"]
 [ext_resource type="Material" uid="uid://cf5e0pf85p23n" path="res://levels/devtest/materials/interactable.tres" id="3_olk4m"]
+[ext_resource type="PackedScene" uid="uid://dwhwrv0lf7g2u" path="res://modules/actors/player/player.tscn" id="4_gq5tr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p2q8x"]
 
@@ -66,3 +67,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2.5, 0)
 material_override = ExtResource("2_h0dxl")
 use_collision = true
 mesh = SubResource("BoxMesh_2fetm")
+
+[node name="Player" parent="." instance=ExtResource("4_gq5tr")]
