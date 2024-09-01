@@ -5,7 +5,7 @@
 extends CharacterBody3D
 
 ## The locomotion settings of the current state.
-@export var current_settings: LocomotionSettings
+@export var state_machine: StateMachine
 ## The direction the actor wishes to move in.
 @export var wish_dir: Vector3
 ## The height the head attachment should be placed at according to the collider height.
@@ -15,9 +15,14 @@ extends CharacterBody3D
 @onready var locomotion_collider: CollisionShape3D = $LocomotionCollider
 @onready var shape_cast: ShapeCast3D = $ShapeCast3D
 
+func get_current_settings() -> LocomotionSettings:
+	if state_machine.CURRENT_STATE is LocomotionState:
+		return state_machine.CURRENT_STATE.settings
+	return null
+
 func accelerate(max_velocity: float, delta: float) -> Vector3:
 	var current_speed = velocity.dot(wish_dir)
-	var add_speed = clamp(max_velocity - current_speed, 0, current_settings.MAX_ACCELERATION * delta)
+	var add_speed = clamp(max_velocity - current_speed, 0, get_current_settings().MAX_ACCELERATION * delta)
 	return velocity + add_speed * wish_dir
 
 func update_velocity(delta: float, apply_friction: bool = true) -> Vector3:
@@ -26,10 +31,10 @@ func update_velocity(delta: float, apply_friction: bool = true) -> Vector3:
 		var speed = velocity.length()
 		
 		if speed != 0:
-			var control = max(current_settings.STOP_SPEED, speed)
-			var drop = control * current_settings.FRICTION * delta
+			var control = max(get_current_settings().STOP_SPEED, speed)
+			var drop = control * get_current_settings().FRICTION * delta
 			velocity *= max(speed - drop, 0) / speed
-	return accelerate(current_settings.MAX_VELOCITY, delta)
+	return accelerate(get_current_settings().MAX_VELOCITY, delta)
 
 func update_step_collider_position():
 	var step_shape: SeparationRayShape3D = step_collider.shape
@@ -54,7 +59,7 @@ func has_collision_above(h: float) -> bool:
 ## Needs a cleanup pass
 var duration: float = .5
 var elapsed_time = 0.0
-func update_collider_height(delta: float, h: float = current_settings.HEIGHT) -> bool:
+func update_collider_height(delta: float, h: float = get_current_settings().HEIGHT) -> bool:
 	var t = clamp(elapsed_time / duration, 0, 1)
 	var current_collider_shape: CylinderShape3D = locomotion_collider.shape
 	
