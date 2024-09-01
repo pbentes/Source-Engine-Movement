@@ -20,5 +20,5 @@ func physics_update(delta: float) -> void:
 	player.locomotion.move_and_slide()
 	player.locomotion.update_collider_height(delta)
 	
-	if not (Input.is_action_pressed("duck") or player.locomotion.has_collision_above($".".settings.HEIGHT)):
+	if not (Input.is_action_pressed("duck") or player.locomotion.has_collision_above(player.state_machine.get_state("Running").settings.HEIGHT)):
 		transition.emit("Running")
