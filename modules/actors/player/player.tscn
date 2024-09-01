@@ -1,0 +1,74 @@
+[gd_scene load_steps=14 format=3 uid="uid://dwhwrv0lf7g2u"]
+
+[ext_resource type="Script" path="res://modules/actors/player/scripts/player.gd" id="1_o82x4"]
+[ext_resource type="PackedScene" uid="uid://dum1283wxnu5o" path="res://modules/systems/locomotion/locomotion.tscn" id="1_rip0s"]
+[ext_resource type="Script" path="res://modules/systems/state_machine/state_machine.gd" id="2_75uqa"]
+[ext_resource type="Script" path="res://modules/actors/player/scripts/states/airborne.gd" id="2_s48bs"]
+[ext_resource type="Script" path="res://modules/systems/locomotion/scripts/locomotion_settings.gd" id="3_e2ekr"]
+[ext_resource type="Script" path="res://modules/actors/player/scripts/camera.gd" id="3_g36fa"]
+[ext_resource type="Script" path="res://modules/actors/player/scripts/states/running.gd" id="3_hculd"]
+[ext_resource type="Script" path="res://modules/actors/player/scripts/states/walking.gd" id="4_ngfin"]
+[ext_resource type="Script" path="res://modules/actors/player/scripts/states/ducking.gd" id="5_vf6sv"]
+
+[sub_resource type="Resource" id="Resource_6co6x"]
+script = ExtResource("3_e2ekr")
+FRICTION = 4.0
+MAX_VELOCITY = 0.6
+MAX_ACCELERATION = 60.0
+STOP_SPEED = 1.5
+HEIGHT = 1.8
+
+[sub_resource type="Resource" id="Resource_yhsmu"]
+script = ExtResource("3_e2ekr")
+FRICTION = 10.0
+MAX_VELOCITY = 8.33
+MAX_ACCELERATION = 90.0
+STOP_SPEED = 1.5
+HEIGHT = 1.8
+
+[sub_resource type="Resource" id="Resource_8l3i6"]
+script = ExtResource("3_e2ekr")
+FRICTION = 10.0
+MAX_VELOCITY = 5.0
+MAX_ACCELERATION = 60.0
+STOP_SPEED = 1.5
+HEIGHT = 1.8
+
+[sub_resource type="Resource" id="Resource_edwtf"]
+script = ExtResource("3_e2ekr")
+FRICTION = 10.0
+MAX_VELOCITY = 1.36
+MAX_ACCELERATION = 60.0
+STOP_SPEED = 1.5
+HEIGHT = 0.8
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_o82x4")
+
+[node name="Locomotion" parent="." instance=ExtResource("1_rip0s")]
+
+[node name="Head" type="Node3D" parent="Locomotion"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+script = ExtResource("3_g36fa")
+
+[node name="MainCamera" type="Camera3D" parent="Locomotion/Head"]
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("2_75uqa")
+CURRENT_STATE = NodePath("Airborne")
+
+[node name="Airborne" type="Node" parent="StateMachine"]
+script = ExtResource("2_s48bs")
+settings = SubResource("Resource_6co6x")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("3_hculd")
+settings = SubResource("Resource_yhsmu")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("4_ngfin")
+settings = SubResource("Resource_8l3i6")
+
+[node name="Ducking" type="Node" parent="StateMachine"]
+script = ExtResource("5_vf6sv")
+settings = SubResource("Resource_edwtf")
