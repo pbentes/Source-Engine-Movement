@@ -1,13 +1,16 @@
 extends LocomotionState
 
-@onready var locomotion: CharacterBody3D = $"../../Locomotion"
 @onready var player: Node3D = $"../.."
 @onready var head: Node3D = $"../../Locomotion/Head"
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+func enter():
+	if not player.locomotion == null:
+		player.locomotion.elapsed_time = 0.0
+
 func physics_update(delta: float) -> void:
-	if locomotion.is_on_floor():
+	if player.locomotion.is_on_floor():
 		if Input.is_action_pressed("duck"):
 			transition.emit("Ducking")
 			return
@@ -15,9 +18,9 @@ func physics_update(delta: float) -> void:
 		transition.emit("Running")
 		return
 	
-	locomotion.velocity.y -= gravity * delta
+	player.locomotion.velocity.y -= gravity * delta
 	
 	player.process_input()
-	locomotion.velocity = locomotion.update_velocity(delta, false)
+	player.locomotion.velocity = player.locomotion.update_velocity(delta, false)
 	
-	locomotion.move_and_slide()
+	player.locomotion.move_and_slide()

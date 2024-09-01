@@ -2,6 +2,10 @@ extends LocomotionState
 
 @onready var player: Node3D = $"../.."
 
+func enter():
+	if not player.locomotion == null:
+		player.locomotion.elapsed_time = 0.0
+
 func physics_update(delta: float) -> void:
 	player.process_input()
 	
